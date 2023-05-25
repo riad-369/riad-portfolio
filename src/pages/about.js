@@ -46,7 +46,7 @@ const about = () => {
         <>
           <Head>
             <title> Riad | About Page</title>
-            <meta name="description" content="any description" />
+            <meta name="description" content="Get to know  me!" />
           </Head>
           <TransitionEffect />
           <main className='flex w-full flex-col items-center justify-center dark:text-light'>

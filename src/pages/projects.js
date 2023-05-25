@@ -124,7 +124,7 @@ const projects = () => {
 
                     <div className='col-span-6 sm:col-span-12'>
                     <Project 
-                        title="NYC Parking Citation Analyis"
+                        title="NYC Parking Citation Analysis"
                         img={project2}
                         summary="Utilized data science tools and techniques including Python, Pandas, Dask, Saturn Cloud, and AWS S3 buckets to conduct a
                         comprehensive data processing workflow on 100 million rows of NYC parking citation data from 2014 to 2022."
