@@ -8,7 +8,7 @@ import TransitionEffect from '@/components/TransitionEffect'
 import { motion } from 'framer-motion'
 
 const StatBadge = ({ value, label }) => (
-    <div className='flex flex-col items-center px-6 py-3 rounded-xl border border-dark/10 dark:border-light/10 bg-light/60 dark:bg-dark/60 backdrop-blur-sm'>
+    <div className='flex flex-col items-center px-6 py-3 rounded-xl border border-dark/10 dark:border-light/10 bg-light dark:bg-dark'>
         <span className='text-2xl font-black text-primary dark:text-primaryDark'>{value}</span>
         <span className='text-xs font-medium text-muted uppercase tracking-wider mt-0.5'>{label}</span>
     </div>
@@ -33,24 +33,11 @@ export default function Home() {
                         {/* Left column — text */}
                         <div className='w-1/2 flex flex-col items-start justify-center lg:w-full lg:items-center lg:text-center'>
 
-                            {/* Role badge */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: 0.2 }}
-                                className='inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full
-                                border border-primary/30 dark:border-primaryDark/30
-                                bg-primary/5 dark:bg-primaryDark/10 text-sm font-medium text-primary dark:text-primaryDark'
-                            >
-                                <span className='w-2 h-2 rounded-full bg-accent animate-pulse'></span>
-                                Available for opportunities
-                            </motion.div>
-
                             {/* Headline */}
                             <motion.h1
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.3 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
                                 className='text-6xl font-black leading-[1.1] tracking-tight mb-6
                                 xl:text-5xl lg:text-center lg:text-6xl md:text-5xl sm:text-4xl xs:text-3xl'
                             >
@@ -64,7 +51,7 @@ export default function Home() {
                             <motion.p
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.45 }}
+                                transition={{ duration: 0.6, delay: 0.35 }}
                                 className='text-base leading-relaxed text-dark/75 dark:text-light/70 mb-8 max-w-lg lg:mx-auto md:text-sm'
                             >
                                 I build data-driven systems that transform messy, complex datasets into clear insights and
@@ -76,11 +63,11 @@ export default function Home() {
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: 0.55 }}
+                                transition={{ duration: 0.5, delay: 0.45 }}
                                 className='flex items-center gap-4 mb-10 lg:justify-center flex-wrap'
                             >
                                 <Link
-                                    href="/riadmohammed_resume5.pdf"
+                                    href="/riadmohammed_resume_2026.pdf"
                                     target="_blank"
                                     className='flex items-center gap-2 bg-primary hover:bg-primary/90 text-white
                                     px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200
@@ -103,7 +90,7 @@ export default function Home() {
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                transition={{ duration: 0.5, delay: 0.65 }}
+                                transition={{ duration: 0.5, delay: 0.55 }}
                                 className='flex items-center gap-5 lg:justify-center'
                             >
                                 <a
@@ -130,31 +117,29 @@ export default function Home() {
                         {/* Right column — image + stats */}
                         <div className='w-5/12 flex flex-col items-center gap-8 lg:w-full lg:max-w-sm lg:mx-auto'>
 
-                            {/* Profile image with gradient ring */}
+                            {/* Profile image — blends into background */}
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.7, delay: 0.3 }}
+                                transition={{ duration: 0.7, delay: 0.25 }}
                                 className='relative w-full'
                             >
-                                {/* Gradient glow behind image */}
-                                <div className='absolute -inset-4 rounded-3xl bg-gradient-to-br from-primary/20 via-transparent to-primaryDark/10 blur-2xl -z-10' />
-                                <div className='rounded-3xl overflow-hidden border border-dark/10 dark:border-light/8 shadow-2xl'>
-                                    <Image
-                                        src={profilePic}
-                                        alt="Riad Mohammed"
-                                        className='w-full h-auto'
-                                        priority
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                                    />
-                                </div>
+                                {/* Soft radial glow that matches the page bg at edges */}
+                                <div className='absolute inset-0 rounded-3xl bg-gradient-to-b from-transparent via-transparent to-light dark:to-dark z-10 pointer-events-none' />
+                                <Image
+                                    src={profilePic}
+                                    alt="Riad Mohammed"
+                                    className='w-full h-auto drop-shadow-xl'
+                                    priority
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                                />
                             </motion.div>
 
                             {/* Stats row */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: 0.6 }}
+                                transition={{ duration: 0.5, delay: 0.5 }}
                                 className='grid grid-cols-3 gap-3 w-full'
                             >
                                 <StatBadge value="10+" label="Projects" />
