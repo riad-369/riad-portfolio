@@ -1,118 +1,132 @@
 import React, { useEffect, useRef } from 'react'
 import Head from 'next/head'
-import AnimatedText from '@/components/AnimatedText'
 import Layout from '@/components/Layout'
 import Image from 'next/image'
 import profilePic from "../../public/images/profile/riad.jpg"
-import { useInView, useMotionValue, useSpring } from 'framer-motion'
+import { useInView, useMotionValue, useSpring, motion } from 'framer-motion'
 import Skills from '@/components/Skills'
 import Experience from '@/components/Experience'
 import Education from '@/components/Education'
 import TransitionEffect from '@/components/TransitionEffect'
 
+const AnimatedNumbers = ({ value }) => {
+    const ref = useRef(null);
+    const motionValue = useMotionValue(0);
+    const springValue = useSpring(motionValue, { duration: 3000 })
+    const isInView = useInView(ref, { once: true });
 
-const AnimatedNumbers = ({value}) => {
-const ref = useRef(null);
-
-const motionValue = useMotionValue(0);
-const springValue = useSpring(motionValue, { duration: 3000})
-const isInView = useInView(ref, {once:true});
-
-useEffect(() => {
-  if(isInView){
-    motionValue.set(value);
-  }
-   
-}, [isInView, value, motionValue])
-
-useEffect(() => {
-    springValue.on("change", (latest) =>{
-        if(ref.current && latest.toFixed(0) <=value){
-            ref.current.textContent = latest.toFixed(0);
+    useEffect(() => {
+        if (isInView) {
+            motionValue.set(value);
         }
-    })
-     
-  }, [springValue, value])
+    }, [isInView, value, motionValue])
 
+    useEffect(() => {
+        springValue.on("change", (latest) => {
+            if (ref.current && latest.toFixed(0) <= value) {
+                ref.current.textContent = latest.toFixed(0);
+            }
+        })
+    }, [springValue, value])
 
-
-
- 
     return <span ref={ref}></span>
 }
+
+const StatCard = ({ value, suffix = "", label }) => (
+    <div className='flex flex-col items-center text-center px-6 py-5 rounded-2xl
+    border border-dark/10 dark:border-light/10
+    bg-light dark:bg-dark
+    hover:border-primary/40 dark:hover:border-primaryDark/40
+    transition-colors duration-300'>
+        <span className='inline-block text-5xl font-black text-dark dark:text-light md:text-4xl sm:text-3xl'>
+            <AnimatedNumbers value={parseInt(value)} />{suffix}
+        </span>
+        <span className='text-sm font-medium text-muted uppercase tracking-wider mt-1'>{label}</span>
+    </div>
+)
 
 const about = () => {
     return (
         <>
-          <Head>
-            <title> Riad | About Page</title>
-            <meta name="description" content="Get to know  me!" />
-          </Head>
-          <TransitionEffect />
-          <main className='flex w-full flex-col items-center justify-center dark:text-light'>
-            <Layout className='pt-16'>
-            <AnimatedText text="Passion Fuels Purpose!" className='mb-16 lg:!text-7xl sm:!text-6xl xs:!text-4xl sm:mb-8'/>
-            <div className='grid w-full grid-cols-8 gap-16 sm:gap-8'>
-                <div className='col-span-3 flex flex-col items-start justify-start xl:col-span-4 md:order-2 md:col-span-8'>
-                    <h2 className='mb-4 text-lg font-bold uppercase text-dark/75 dark:text-light/75'>Biography</h2>
-                    <p className='font-medium'>
-                    Hey I&apos;m Riad, an aspiring data scientist and machine learning engineer. Driven by my passion for problem-solving using data, 
-                    I believe it has immense value and potential to enhance our lives. 
-                    </p>
-                    <p className='my-4 font-medium'>
-                    My primary focus is on data analytics, data science, machine learning, and artificial intelligence, aiming to deliver design excellence 
-                    and innovative solutions that exceed expectations. Beyond work, I find inspiration in extracurricular activities such as hiking, football and gym, 
-                    which bring fresh perspectives to my projects.
-                    </p>
-                    <p className='font-medium'>
-                    I&apos;m eagerly seeking new challenges and collaborations for impactful change through data-driven magic. I&apos;m excited 
-                    to channel my skills, passion and knowledge into your next project, let&apos;s make it happen!
-                    </p>
-                </div>
-            <div className='col-span-3 relative h-max rounded-2xl border-2 border-solid border-dark bg-light p-8 dark:bg-dark dark:border-light xl:col-span-4 md:order-1 md:col-span-8'>
-                <div className='absolute top-0 -right-3 -z-10 w-[102%] h-[103%] rounded-[2rem] bg-dark dark:bg-light '/>
-                <Image src={profilePic} alt="Riad" className='w-full h-auto rounded-2xl' 
-                priority
-                sizes="(max-width: 768px) 100vw,
-                (max-width: 1200px) 50vw,
-                33vw"
-                
-                />
-            </div>
-            <div className='col-span-2 flex flex-col items-end justify-between xl:col-span-8 xl:flex-row xl:items-center md:order-3'>
+            <Head>
+                <title>About — Riad Mohammed | Data Scientist</title>
+                <meta name="description" content="Learn about Riad Mohammed, a data scientist and ML engineer with expertise in big data, machine learning, and statistical analysis." />
+            </Head>
+            <TransitionEffect />
+            <main className='flex w-full flex-col items-center justify-center dark:text-light'>
+                <Layout className='pt-16'>
 
-                <div className='flex flex-col items-end justify-center xl:items-center'>
-                    <span className='inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl'>
-                        <AnimatedNumbers value={1} />+
-                    </span>
-                    <h2 className='text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm'>years of experience</h2>
-                </div>
+                    {/* Page heading */}
+                    <div className='w-full text-center mb-16 sm:mb-10'>
+                        <motion.p
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4 }}
+                            className='text-sm font-semibold tracking-widest uppercase text-primary dark:text-primaryDark mb-3'
+                        >
+                            About Me
+                        </motion.p>
+                        <motion.h1
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                            className='text-7xl font-black tracking-tight dark:text-light lg:text-6xl sm:text-5xl xs:text-4xl'
+                        >
+                            Passion Fuels <span className='text-gradient'>Purpose</span>
+                        </motion.h1>
+                    </div>
 
-                <div className='flex flex-col items-end justify-center xl:items-center'>
-                    <span className='inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl'>
-                        <AnimatedNumbers value={10} />+
-                    </span>
-                    <h2 className='text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm'>projects completed</h2>
-                </div>
+                    <div className='grid w-full grid-cols-8 gap-16 sm:gap-8'>
 
-                <div className='flex flex-col items-end justify-center xl:items-center'>
-                    <span className='inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl'>
-                        <AnimatedNumbers value={23} />
-                    </span>
-                    <h2 className='text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm'>years old</h2>
-                </div>
+                        {/* Bio */}
+                        <div className='col-span-3 flex flex-col items-start justify-start xl:col-span-4 md:order-2 md:col-span-8'>
+                            <h2 className='mb-4 text-xs font-bold uppercase tracking-widest text-muted'>Biography</h2>
+                            <p className='font-medium leading-relaxed text-dark/85 dark:text-light/80'>
+                                I&apos;m Riad Mohammed, a data scientist and machine learning engineer driven by a deep
+                                conviction that data, applied correctly, changes outcomes. I build systems that
+                                transform messy, high-volume datasets into clear insights and strategic decisions.
+                            </p>
+                            <p className='my-5 font-medium leading-relaxed text-dark/85 dark:text-light/80'>
+                                My core expertise spans machine learning, statistical modeling, big data engineering,
+                                and AI &mdash; with a strong focus on delivering production-ready solutions that bridge the
+                                gap between research and real-world business value. I&apos;m equally comfortable working
+                                with 100M-row datasets on distributed cloud infrastructure as I am designing
+                                interpretable models for executive stakeholders.
+                            </p>
+                            <p className='font-medium leading-relaxed text-dark/85 dark:text-light/80'>
+                                Outside of work I recharge through hiking, football, and the gym &mdash; activities that keep
+                                my problem-solving sharp and my perspective grounded. I&apos;m actively seeking roles where
+                                I can apply data-driven thinking to hard, meaningful problems.
+                            </p>
+                        </div>
 
-            </div>
+                        {/* Photo */}
+                        <div className='col-span-3 relative h-max rounded-2xl xl:col-span-4 md:order-1 md:col-span-8'>
+                            <div className='absolute -inset-3 rounded-3xl bg-gradient-to-br from-primary/20 via-transparent to-primaryDark/10 blur-xl -z-10' />
+                            <div className='rounded-2xl overflow-hidden border border-dark/10 dark:border-light/8 shadow-xl'>
+                                <Image
+                                    src={profilePic}
+                                    alt="Riad Mohammed"
+                                    className='w-full h-auto'
+                                    priority
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                />
+                            </div>
+                        </div>
 
+                        {/* Stats */}
+                        <div className='col-span-2 flex flex-col items-stretch justify-center gap-4 xl:col-span-8 xl:flex-row xl:gap-6 md:order-3'>
+                            <StatCard value={10} suffix="+" label="Projects Completed" />
+                            <StatCard value={5} suffix="+" label="Years of Experience" />
+                            <StatCard value={100} suffix="M+" label="Data Rows Processed" />
+                        </div>
+                    </div>
 
-            </div>
-
-            <Skills />
-            <Experience />
-            <Education />
-            </Layout>
-          </main>
-        
+                    <Skills />
+                    <Experience />
+                    <Education />
+                </Layout>
+            </main>
         </>
     )
 }

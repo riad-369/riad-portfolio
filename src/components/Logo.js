@@ -1,27 +1,28 @@
 import React from 'react'
 import Link from 'next/link'
-import {motion} from "framer-motion"
+import { motion } from "framer-motion"
 
 const MotionLink = motion(Link);
 
 const Logo = () => {
     return (
         <div className='flex items-center justify-center mt-2'>
-            <MotionLink href="/"
-            className='w-16 h-16 bg-dark text-light flex items-center justify-center rounded-full text-2x1 font-bold border border-solid border-transparent dark:border-light'
-
-            // Hover function created to scale in size and change color 
-
-            whileHover={{
-                // backgroundColor:["#121212", "rgba(131,58,180,1)","rgba(253,29,29,1)","rgba(252,176,69,1)","rgba(131,58,180,1)", "#121212"]
-                backgroundColor:["#121212", "rgba(253,29,29,1)", "#121212"],
-                transition:{duration:1, repeat: Infinity},
-                // scale:1.5 
-            }}
-            >RM</MotionLink>
+            <MotionLink
+                href="/"
+                className='w-14 h-14 bg-dark dark:bg-light text-light dark:text-dark
+                flex items-center justify-center rounded-full
+                text-sm font-black tracking-widest
+                border-2 border-transparent'
+                whileHover={{
+                    backgroundColor: ["#0a0a0f", "#6366f1", "#818cf8", "#6366f1", "#0a0a0f"],
+                    transition: { duration: 1.2, repeat: Infinity },
+                }}
+                aria-label="Home"
+            >
+                RM
+            </MotionLink>
         </div>
     )
 }
 
 export default Logo
-
